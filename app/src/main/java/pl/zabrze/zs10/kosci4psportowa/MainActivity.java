@@ -29,31 +29,45 @@ public class MainActivity extends AppCompatActivity {
         tablicaObrazowKosci[2] = findViewById(R.id.imageView3);
         tablicaObrazowKosci[3] = findViewById(R.id.imageView4);
         tablicaObrazowKosci[4] = findViewById(R.id.imageView5);
-       // int[] obrazy = {R.drawable.kosc1, R.drawable.kosc2,R.drawable.kosc3,
-        //R.drawable.kosc4,R.drawable.kosc5,R.drawable.kosc6};
+        for (int i = 0; i < kosci.length; i++) {
+            kosci[i] = new Kosc();
+        }
         buttonRzuc.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int suma =0;
                         for (int i = 0; i < kosci.length; i++) {
-                            kosci[i] = new Kosc();
+                            kosci[i].wylosujKosc();
                             tablicaObrazowKosci[i].setImageResource(kosci[i].getIdObrazka());
-                        }
-                        /*for (int i = 0; i < tablicaLosowych.length; i++) {
-                            tablicaLosowych[i] = (int)(Math.random()*6+1);
-                            suma = suma + tablicaLosowych[i];
-                            tablicaObrazowKosci[i].setImageResource(obrazy[tablicaLosowych[i]-1]);
+                            suma = suma +kosci[i].getWartosc();
                         }
 
-                         */
-                        Toast.makeText(MainActivity.this,
-                                "Apka działa", Toast.LENGTH_SHORT).show();
-                        textViewPunkty.setText(Integer.toString(suma));
+
+                       // textViewPunkty.setText(Integer.toString(suma));
                         textViewPunkty.setText(String.valueOf(suma));
                        // imageView.setImageResource(R.drawable.kosc6);
                     }
                 }
         );
+
+        for (int i = 0; i < tablicaObrazowKosci.length; i++) {
+            final int ind = i;
+            tablicaObrazowKosci[i].setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            kosci[ind].blokujodblokuj();
+                            if(kosci[ind].isZablokowana())
+                            tablicaObrazowKosci[ind].setAlpha(0.5f);
+                            else
+                            {
+                                tablicaObrazowKosci[ind].setAlpha(1f);
+                            }
+                        }
+                    }
+            );
+        }
+
     }
 }

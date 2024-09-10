@@ -18,6 +18,10 @@ public class Kosc {
         wylosujKosc();
     }
 
+    public void blokujodblokuj(){
+        zablokowana = !zablokowana;
+    }
+
     public int getWartosc() {
         return wartosc;
     }
